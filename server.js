@@ -47,14 +47,14 @@ app.use("/api", require("./routes/notifyRouter"));
 app.use("/api", require("./routes/messageRouter"));
 
 connectDB();
-
+//HEruku Config
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
   app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "client", "build", "index.html"));
   });
 }
-
+//server
 const port = process.env.PORT || 5000;
 http.listen(port, () => {
   console.log("Server is running on port", port);
