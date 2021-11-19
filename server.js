@@ -10,6 +10,7 @@ const connectDB = require("./Config/ConnectDB");
 const comments = require("./models/commentModel");
 const posts = require("./models/postModel");
 const users = require("./models/userModel");
+const notifications = require("./models/notifyModel");
 
 const app = express();
 app.use(express.json());
@@ -21,7 +22,7 @@ const { buildRouter } = require("@admin-bro/express");
 const mongooseAdminBro = require("@admin-bro/mongoose");
 
 AdminBro.registerAdapter(mongooseAdminBro);
-const AdminBroOptions = { resources: [users, posts, comments] };
+const AdminBroOptions = { resources: [users, posts, comments, notifications] };
 
 const adminBro = new AdminBro(AdminBroOptions);
 const router = buildRouter(adminBro);
@@ -51,7 +52,7 @@ connectDB();
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
   app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
 }
 //server
